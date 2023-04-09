@@ -9,7 +9,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title> Login | Minimal UI</title>
+        <title> Login | LipaGas IaaS</title>
       </Helmet>
 
       <Login />
