@@ -1,8 +1,8 @@
 {
-  "name": "@minimal/minimal-kit-react",
-  "author": "Minimals UI",
-  "version": "4.3.0",
-  "description": "Javascript Version",
+  "name": "@lipagas/client-iaas",
+  "author": "Mukira",
+  "version": "j.3.13",
+  "description": "Lipagas IaaS is an infrastructure-as-a-service web dashboard that allows clients to pay for LPG using mobile money on a pay-as-you-go model. The platform provides LPG providers with a way to manage their inventory and payments, while clients can easily purchase and track their orders. The system also incorporates web3 technology to allow for more secure and transparent transactions.",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
