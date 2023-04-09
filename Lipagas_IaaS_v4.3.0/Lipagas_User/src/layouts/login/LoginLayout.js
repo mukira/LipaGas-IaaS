@@ -27,9 +27,9 @@ export default function LoginLayout({ children, illustration, title }) {
         }}
       />
 
-      <StyledSection>
-        <Typography variant="h3" sx={{ mb: 10, maxWidth: 480, textAlign: 'center' }}>
-          {title || 'Hi, Welcome back'}
+      <StyledSection sx={{ mt: 5.5 }}>
+        <Typography variant="h5" sx={{ mb: 10, maxWidth: 480, textAlign: 'center' }}>
+          {title || 'Clean energy for the next Billion!'}
         </Typography>
 
         <Image

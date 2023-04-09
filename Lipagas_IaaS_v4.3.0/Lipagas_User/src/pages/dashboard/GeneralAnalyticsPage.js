@@ -34,7 +34,7 @@ export default function GeneralAnalyticsPage() {
 
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Clean energy for the next Billion!
         </Typography>
 
         <Grid container spacing={3}>
