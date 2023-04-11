@@ -1,36 +1,45 @@
-import { useState } from 'react';
-import React from 'react'
+import React, { useState, Suspense, lazy } from 'react';
+
+
+
 import { MuiTelInput } from 'mui-tel-input'
 import * as Yup from 'yup';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
+import { Stack, Alert, Box } from '@mui/material';
+// import { Link, Stack, Alert, IconButton, InputAdornment, Box } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-// routes
-import { PATH_AUTH } from '../../routes/paths';
+/// routes
+// import { PATH_AUTH } from '../../routes/paths';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // components
-import Iconify from '../../components/iconify';
-import FormProvider, { RHFTextField } from '../../components/hook-form';
+// import Iconify from '../../components/iconify';
+import FormProvider from '../../components/hook-form';
+// import FormProvider, { RHFTextField } from '../../components/hook-form';
 
 // ----------------------------------------------------------------------
+import LoadingScreen from '../../components/loading-screen';
 
 export default function AuthLoginForm() {
-    const [phone, setPhone] = React.useState('')
-  
-    const handleChange = (newPhone) => {
-      setPhone(newPhone)
-    }
-  
+  const [phone, setPhone] = useState('')
 
-  
+  const Loadable = (Component) => (props) =>
+  (
+    <Suspense fallback={<LoadingScreen />}>
+      <Component {...props} />
+    </Suspense>
+  );
+
+  const handleChange = (newPhone) => {
+    setPhone(newPhone)
+  }
   const { login } = useAuthContext();
 
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
@@ -72,9 +81,13 @@ export default function AuthLoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email" label="Email address" />
-
-        <RHFTextField
+        {/* <Box sx={{ mb: "2em"}}>
+          <RHFTextField name="number" label="Phone number" />
+        </Box> */}
+        <Box sx={{ mb: "2em"}}>
+          <MuiTelInput sx={{width: "100%"}} value = {phone}defaultCountry="KE" onChange={handleChange}/>
+        </Box>
+        {/* <RHFTextField
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}
@@ -87,10 +100,10 @@ export default function AuthLoginForm() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </Stack>
 
-      <Stack alignItems="flex-end" sx={{ my: 2 }}>
+      {/* <Stack alignItems="flex-end" sx={{ my: 2 }}>
         <Link
           component={RouterLink}
           to={PATH_AUTH.resetPassword}
@@ -98,27 +111,28 @@ export default function AuthLoginForm() {
           color="inherit"
           underline="always"
         >
-          Forgot password?
+          Login with Email?
         </Link>
-      </Stack>
+      </Stack> */}
 
       <LoadingButton
         fullWidth
-        color="inherit"
+        // color="success"
         size="large"
         type="submit"
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
-          bgcolor: 'text.primary',
+          bR: "25px",
+          bgcolor: '#00AB55',
           color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           '&:hover': {
-            bgcolor: 'text.primary',
+            bgcolor: '#057F41',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           },
         }}
       >
-        Login
+        Sign In
       </LoadingButton>
     </FormProvider>
   );

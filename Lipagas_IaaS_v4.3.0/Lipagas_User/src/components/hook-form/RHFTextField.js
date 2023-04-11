@@ -25,6 +25,7 @@ export default function RHFTextField({ name, helperText, ...other }) {
           value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
           error={!!error}
           helperText={error ? error?.message : helperText}
+          // InputProps = {{inputProps: {min: 0, max:10 }}}
           {...other}
         />
       )}

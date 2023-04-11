@@ -50,7 +50,7 @@ export default function VerifyCodePage() {
         }}
       >
         <Iconify icon="eva:chevron-left-fill" width={16} />
-        Return to sign in
+        Edit Number
       </Link>
     </>
   );

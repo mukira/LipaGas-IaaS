@@ -52,6 +52,7 @@ export default function AuthVerifyCodeForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       console.log('DATA', Object.values(data).join(''));
+      // Implement the checker
       enqueueSnackbar('Verify success!');
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
