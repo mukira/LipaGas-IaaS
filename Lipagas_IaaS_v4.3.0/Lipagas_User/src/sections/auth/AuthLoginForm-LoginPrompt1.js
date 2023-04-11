@@ -1,8 +1,5 @@
-import React, { useState, Suspense, lazy } from 'react';
-
-
-
-import { MuiTelInput } from 'mui-tel-input'
+import React, { useState } from 'react';
+import { MuiTelInput, matchIsValidTel } from 'mui-tel-input'
 import * as Yup from 'yup';
 // import { Link as RouterLink } from 'react-router-dom';
 // form
@@ -22,17 +19,9 @@ import FormProvider from '../../components/hook-form';
 // import FormProvider, { RHFTextField } from '../../components/hook-form';
 
 // ----------------------------------------------------------------------
-import LoadingScreen from '../../components/loading-screen';
 
 export default function AuthLoginForm() {
   const [phone, setPhone] = useState('')
-
-  const Loadable = (Component) => (props) =>
-  (
-    <Suspense fallback={<LoadingScreen />}>
-      <Component {...props} />
-    </Suspense>
-  );
 
   const handleChange = (newPhone) => {
     setPhone(newPhone)
@@ -42,13 +31,13 @@ export default function AuthLoginForm() {
   // const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    password: Yup.string().required('Password is required'),
+    phoneNumber: Yup.string()
+    .required('Phone number is required')
+    .matches(/^[+][(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]$/, 'Phone number is invalid')
   });
 
   const defaultValues = {
-    email: '+25472221111',
-    password: 'demo1234',
+    phoneNumber: '',
   };
 
   const methods = useForm({
@@ -65,7 +54,8 @@ export default function AuthLoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      await login(data.email, data.password);
+      console.log("Hello");
+      await login(data.phoneNumber);
     } catch (error) {
       console.error(error);
       reset();
@@ -80,41 +70,10 @@ export default function AuthLoginForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-
-        {/* <Box sx={{ mb: "2em"}}>
-          <RHFTextField name="number" label="Phone number" />
-        </Box> */}
         <Box sx={{ mb: "2em"}}>
-          <MuiTelInput sx={{width: "100%"}} value = {phone}defaultCountry="KE" onChange={handleChange}/>
+          <MuiTelInput sx={{width: "100%"}} value = {phone} defaultCountry="KE" onChange={handleChange} />
         </Box>
-        {/* <RHFTextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        /> */}
       </Stack>
-
-      {/* <Stack alignItems="flex-end" sx={{ my: 2 }}>
-        <Link
-          component={RouterLink}
-          to={PATH_AUTH.resetPassword}
-          variant="body2"
-          color="inherit"
-          underline="always"
-        >
-          Login with Email?
-        </Link>
-      </Stack> */}
-
       <LoadingButton
         fullWidth
         // color="success"

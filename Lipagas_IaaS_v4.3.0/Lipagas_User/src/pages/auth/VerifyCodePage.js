@@ -23,13 +23,17 @@ export default function VerifyCodePage() {
       <EmailInboxIcon sx={{ mb: 5, height: 96 }} />
 
       <Typography variant="h3" paragraph>
-        Please check your email!
+        A code was sent to 
+      </Typography>
+      
+      <Typography sx={{ color: 'text.secondary', mb: 5 }}>
+        +254728127853
       </Typography>
 
-      <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-        We have emailed a 6-digit confirmation code to acb@domain, please enter the code in below
-        box to verify your email.
+      <Typography variant="body2" sx={{ my: 3 }}>
+        <Link variant="subtitle2" href = "/auth/login-unprotected">Edit phone number</Link>
       </Typography>
+
 
       <AuthVerifyCodeForm />
 
